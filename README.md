@@ -1,7 +1,7 @@
 komga
 =========
 
-Installs Komga as a docker container.
+Installs [Komga](https://komga.org/) as a docker container.
 
 
 Role Variables
