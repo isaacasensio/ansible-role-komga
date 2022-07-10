@@ -1,0 +1,12 @@
+---
+- name: Verify
+  hosts: all
+  tasks:
+    - name: Populate service facts
+      ansible.builtin.service_facts:
+
+    - name: Verify komga is running
+      ansible.builtin.assert:
+        that: >-
+          ansible_facts['services']['komga.service']['state'] == 'running'
+      become: true

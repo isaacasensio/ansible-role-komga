@@ -1,0 +1,46 @@
+---
+- name: Ensure komga folders exists
+  become: true
+  ansible.builtin.file:
+    dest: "{{ item }}"
+    state: directory
+    mode: 0777
+  loop:
+    - /etc/komga/config
+
+- name: Copy komga docker-compose template.
+  ansible.builtin.template:
+    src: templates/docker-compose.yml.j2
+    dest: "/etc/komga/docker-compose.yml"
+    mode: 0644
+  become: true
+
+- name: Create systemd komga service.
+  ansible.builtin.template:
+    src: templates/komga.service.j2
+    dest: "/etc/systemd/system/komga.service"
+    mode: 0644
+  become: true
+
+- name: Ensure komga.service is started
+  ansible.builtin.systemd:
+    state: started
+    enabled: true
+    name: komga
+  become: true
+
+- name: Check komga container
+  ansible.builtin.uri:
+    url: "http://localhost:{{ komga_host_port }}"
+  register: result
+  until: result.status == 200
+  retries: 5
+  delay: 30
+
+- name: Remove old image versions
+  become: true
+  docker_prune:
+    images: true
+    images_filters:
+      dangling: false
+  notify: Restart Docker service

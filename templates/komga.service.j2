@@ -1,0 +1,16 @@
+[Unit]
+Description=komga
+Requires=docker.service
+After=docker.service
+
+[Service]
+Restart=always
+User={{ komga_container_user }}
+Group=docker
+WorkingDirectory=/etc/komga
+ExecStartPre=/usr/local/bin/docker-compose -f /etc/komga/docker-compose.yml down
+ExecStart=/usr/local/bin/docker-compose -f /etc/komga/docker-compose.yml up
+ExecStop=/usr/local/bin/docker-compose -f /etc/komga/docker-compose.yml down
+
+[Install]
+WantedBy=multi-user.target
