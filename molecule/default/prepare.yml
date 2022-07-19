@@ -3,6 +3,7 @@
   hosts: all
   become: true
   vars:
+    docker_compose_version: "v2.4.1"
     pip_install_packages:
       - requests
       - docker

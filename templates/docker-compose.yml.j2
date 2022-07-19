@@ -4,6 +4,7 @@ version: '3.3'
 services:
   komga:
     image: {{komga_image}}
+    pull_policy: always
     container_name: komga
     volumes:
       - type: bind
