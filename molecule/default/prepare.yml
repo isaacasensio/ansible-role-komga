@@ -3,7 +3,6 @@
   hosts: all
   become: true
   vars:
-    komga_container_user: root
     pip_install_packages:
       - requests
       - docker
