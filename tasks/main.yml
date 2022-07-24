@@ -6,12 +6,13 @@
     state: directory
     mode: 0777
   loop:
-    - /etc/komga/config
+    - "{{ komga_host_config_path }}"
+    - "{{ komga_host_data_path }}"
 
 - name: Copy komga docker-compose template.
   ansible.builtin.template:
     src: templates/docker-compose.yml.j2
-    dest: "/etc/komga/docker-compose.yml"
+    dest: "{{ komga_host_config_path }}/docker-compose.yml"
     mode: 0644
   become: true
 

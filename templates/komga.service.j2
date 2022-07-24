@@ -7,10 +7,10 @@ After=docker.service
 Restart=always
 User={{ komga_container_user }}
 Group=docker
-WorkingDirectory=/etc/komga
-ExecStartPre=/usr/local/bin/docker-compose -f /etc/komga/docker-compose.yml down
-ExecStart=/usr/local/bin/docker-compose -f /etc/komga/docker-compose.yml up
-ExecStop=/usr/local/bin/docker-compose -f /etc/komga/docker-compose.yml down
+WorkingDirectory={{ komga_host_config_path }}
+ExecStartPre=/usr/local/bin/docker-compose -f {{ komga_host_config_path }}/docker-compose.yml down
+ExecStart=/usr/local/bin/docker-compose -f {{ komga_host_config_path }}/docker-compose.yml up
+ExecStop=/usr/local/bin/docker-compose -f {{ komga_host_config_path }}/docker-compose.yml down
 
 [Install]
 WantedBy=multi-user.target
