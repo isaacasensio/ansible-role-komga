@@ -7,16 +7,9 @@ services:
     pull_policy: always
     container_name: komga
     volumes:
-      - type: bind
-        source: {{komga_host_config_path}}
-        target: /config
-      - type: bind
-        source: {{komga_host_data_path}}
-        target: /data
-      - type: bind
-        source: /etc/timezone
-        target: /etc/timezone
-        read_only: true
+      - {{komga_host_config_path}}:/config
+      - {{komga_host_data_path}}:/data
+      - /etc/timezone:/etc/timezone:ro
     ports:
       - {{komga_host_port}}:8080
     user: "1000:1000"
