@@ -2,7 +2,7 @@
 galaxy_info:
   role_name: komga
   author: isaacasensio
-  description: Install komga as a docker container
+  description: Install komga docker container as Linux service
   company: MyMac, LLC
   license: MIT
   min_ansible_version: "2.12"
