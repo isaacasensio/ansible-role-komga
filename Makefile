@@ -17,5 +17,5 @@ lint:
 test:
 	$(MOLECULE) test
 
-test:
+converge:
 	$(MOLECULE) converge
