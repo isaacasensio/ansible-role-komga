@@ -3,8 +3,5 @@
   hosts: all
   become: true
 
-  vars:
-    komga_container_user: root
-
   roles:
     - role: iasensio.komga

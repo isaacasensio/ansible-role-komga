@@ -12,5 +12,17 @@ services:
       - /etc/timezone:/etc/timezone:ro
     ports:
       - {{komga_host_port}}:8080
-    user: "1000:1000"
+    user: "{{ created_uid }}:{{ created_gid }}"
     restart: unless-stopped
+{% if komga_network_name is defined and komga_network_name|length %}
+    networks:
+{% filter indent(width=3) %}
+      - {{ komga_network_name }}
+{% endfilter %}
+{% endif %}  
+
+{% if komga_network_name is defined and komga_network_name|length %}
+networks:
+  {{ komga_network_name }}:
+    external: true
+{% endif %}

@@ -12,12 +12,6 @@
       apt: update_cache=true cache_valid_time=600
       changed_when: false
 
-    - name: create data folder
-      ansible.builtin.file:
-        dest: /etc/komga/data
-        state: directory
-        mode: 0777
-
   roles:
     - role: geerlingguy.pip
     - role: geerlingguy.docker

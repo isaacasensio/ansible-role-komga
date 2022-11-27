@@ -1,10 +1,30 @@
 ---
+- name: Create komga user
+  ansible.builtin.user:
+    name: "{{ komga_container_user }}"
+    shell: /sbin/nologin
+    create_home: true
+    state: present
+  become: true
+
+- name: get created user metadata
+  ansible.builtin.getent:
+    database: passwd
+    key: "{{ komga_container_user }}"
+
+- name: Setting user id and group id facts
+  ansible.builtin.set_fact:
+    created_uid: "{{ ansible_facts.getent_passwd[komga_container_user].1 }}"
+    created_gid: "{{ ansible_facts.getent_passwd[komga_container_user].2 }}"
+
 - name: Ensure komga folders exists
   become: true
   ansible.builtin.file:
     dest: "{{ item }}"
+    owner: "{{ komga_container_user }}"
+    group: "{{ komga_container_user }}"
     state: directory
-    mode: 0777
+    mode: 0755
   loop:
     - "{{ komga_host_config_path }}"
     - "{{ komga_host_data_path }}"
@@ -13,6 +33,8 @@
   ansible.builtin.template:
     src: templates/docker-compose.yml.j2
     dest: "{{ komga_host_config_path }}/docker-compose.yml"
+    owner: "{{ komga_container_user }}"
+    group: "{{ komga_container_user }}"
     mode: 0644
   become: true
 
@@ -40,7 +62,7 @@
 
 - name: Remove old image versions
   become: true
-  docker_prune:
+  community.docker.docker_prune:
     images: true
     images_filters:
       dangling: false
