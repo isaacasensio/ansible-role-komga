@@ -1,7 +1,7 @@
 komga
 =========
 
-Installs [Komga](https://komga.org/) as a docker container.
+Installs [Komga](https://komga.org/) docker container as a Linux service.
 
 
 Role Variables
@@ -10,7 +10,7 @@ Role Variables
 Available variables are listed below, along with default values (see defaults/main.yml):
 
 ```
-komga_image: gotson/komga
+komga_image: gotson/komga:latest
 ```
 The version of the komga image to run as a container.
 
