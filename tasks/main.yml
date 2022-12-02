@@ -7,7 +7,7 @@
     state: present
   become: true
 
-- name: get created user metadata
+- name: Get created user metadata
   ansible.builtin.getent:
     database: passwd
     key: "{{ komga_container_user }}"
