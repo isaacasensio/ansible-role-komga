@@ -15,7 +15,7 @@ komga_image: gotson/komga:latest
 The version of the komga image to run as a container.
 
 ```
-komga_host_port: 9001
+komga_host_port: 25600
 ```
 Host exposed port from where to reach Komga.
 
