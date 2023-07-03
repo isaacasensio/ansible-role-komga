@@ -1,6 +1,6 @@
 ---
 komga_image: gotson/komga
-komga_host_port: 9001
+komga_host_port: 25600
 komga_host_config_path: /etc/komga/config
 komga_host_data_path: /var/lib/komga
 komga_container_user: "komga"
